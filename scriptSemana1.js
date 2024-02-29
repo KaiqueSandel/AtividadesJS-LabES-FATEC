@@ -1,12 +1,17 @@
 function exercicio1() {
     var dado = prompt("Digite um dado:");
     if (dado !== null) {
-        var tipoDado = typeof dado;
+        var tipoDado;
+        if (!isNaN(dado)) {
+            tipoDado = "Number";
+        } else {
+            tipoDado = typeof dado;
+        }
         var verificarTipo = confirm("Deseja verificar o tipo de dado informado?");
         if (verificarTipo) {
             document.body.innerHTML = "O tipo de dado digitado é: " + tipoDado;
         } else {
-            document.body.innerHTML = "Obrigado por visitar esta página";
+            document.body.innerHTML = "Obrigado por visitar a página";
         }
     }
 }
