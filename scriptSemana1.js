@@ -1,9 +1,10 @@
 function exercicio1() {
     var dado = prompt("Digite um dado:");
     if (dado !== null) {
-        var verificarDado = confirm("Deseja verificar o tipo de dado informado?");
-        if (verificarDado) {
-            document.body.innerHTML = typeof dado;
+        var tipoDado = typeof dado;
+        var verificarTipo = confirm("Deseja verificar o tipo de dado informado?");
+        if (verificarTipo) {
+            document.body.innerHTML = "O tipo de dado digitado é: " + tipoDado;
         } else {
             document.body.innerHTML = "Obrigado por visitar esta página";
         }
