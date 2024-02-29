@@ -15,7 +15,17 @@
                 <h4 class="card-title">Implemente um script com um array cujos valores sejam adicionados dinamicamente pelo usuário utilizando-se formulário. A cada nova inserção exiba todos os dados cadastrados em ordem alfabética em uma lista ordenada do html.</h4>
             </div>
         </div> 
-
+    <div class="container mt-5">
+        <h1 class="mb-4">Adicionar Valoresy</h1>
+        <form onsubmit="event.preventDefault(); adicionarValor();" class="mb-3">
+            <div class="form-group">
+                <label for="valor">Digite um valor:</label>
+                <input type="text" id="valor" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+        </form>
+        <div id="valores-lista"></div>
+    </div>
         <a href="index.html"><button class="btn btn-danger">Voltar</button></a>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
