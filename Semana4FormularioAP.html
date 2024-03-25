@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Semana 4</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Formulario de Cadastro</h1>
+    <form id="formulario">
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de Pessoa:</label>
+            <select class="form-select" id="tipo" onchange="mostrarCampos()">
+                <option value="aluno">Aluno</option>
+                <option value="professor">Professor</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" id="nome">
+        </div>
+        <div class="mb-3">
+            <label for="sobrenome" class="form-label">Sobrenome:</label>
+            <input type="text" class="form-control" id="sobrenome">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email">
+        </div>
+        <div class="mb-3">
+            <label for="dataNascimento" class="form-label">Data de Nascimento (YYYY-MM-DD):</label>
+            <input type="text" class="form-control" id="dataNascimento">
+        </div>
+        <div class="mb-3" id="campoCurso" style="display:none;">
+            <label for="curso" class="form-label">Curso:</label>
+            <input type="text" class="form-control" id="curso">
+        </div>
+        <div class="mb-3" id="campoAreaAtuacao" style="display:none;">
+            <label for="areaAtuacao" class="form-label">Área de Atuação:</label>
+            <input type="text" class="form-control" id="areaAtuacao">
+        </div>
+        <div class="mb-3" id="campoLinkLattes" style="display:none;">
+            <label for="linkLattes" class="form-label">Link do Lattes:</label>
+            <input type="text" class="form-control" id="linkLattes">
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <a href="semana4.html" class="btn btn-danger">Voltar</a>
+        <button type="button" class="btn btn-secondary" onclick="redefinir()">Redefinir</button>
+    </form>
+</div>
+    <script>
+        function redefinir(){
+            location.reload();
+        }
+        function mostrarCampos() {
+            const tipo = document.getElementById("tipo").value;
+            const campoCurso = document.getElementById("campoCurso");
+            const campoAreaAtuacao = document.getElementById("campoAreaAtuacao");
+            const campoLinkLattes = document.getElementById("campoLinkLattes");
+    
+            if (tipo === "aluno") {
+                campoCurso.style.display = "block";
+                campoAreaAtuacao.style.display = "none";
+                campoLinkLattes.style.display = "none";
+            } else if (tipo === "professor") {
+                campoCurso.style.display = "none";
+                campoAreaAtuacao.style.display = "block";
+                campoLinkLattes.style.display = "block";
+            }
+        }
+        document.getElementById("formulario").addEventListener("submit", function(event) {
+            event.preventDefault();
+    
+            const tipo = document.getElementById("tipo").value;
+            const nome = document.getElementById("nome").value;
+            const sobrenome = document.getElementById("sobrenome").value;
+            const email = document.getElementById("email").value;
+            const dataNascimento = document.getElementById("dataNascimento").value;
+            let pessoa;
+    
+            if (tipo === "aluno") {
+                const curso = document.getElementById("curso").value;
+                pessoa = new Aluno(nome, sobrenome, email, dataNascimento, curso);
+            } else if (tipo === "professor") {
+                const areaAtuacao = document.getElementById("areaAtuacao").value;
+                const linkLattes = document.getElementById("linkLattes").value;
+                pessoa = new Professor(nome, sobrenome, email, dataNascimento, areaAtuacao, linkLattes);
+            }
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

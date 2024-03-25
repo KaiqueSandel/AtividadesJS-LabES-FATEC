@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario Semana 4</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Formulário de Carro da Semana 4</h1>
+        <form id="formularioCarro">
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <input type="text" class="form-control" id="marca" required>
+            </div>
+            <div class="form-group">
+                <label for="modelo">Modelo:</label>
+                <input type="text" class="form-control" id="modelo" required>
+            </div>
+            <div class="form-group">
+                <label for="ano">Ano:</label>
+                <input type="number" class="form-control" id="ano" required>
+            </div>
+            <div class="form-group">
+                <label for="cor">Cor:</label>
+                <input type="text" class="form-control" id="cor" required>
+            </div>
+            <div class="form-group">
+                <label for="kilometragem">Kilometragem:</label>
+                <input type="number" class="form-control" id="kilometragem" required>
+            </div>
+            <div class="form-group">
+                <label for="valorFipe">Valor Fipe:</label>
+                <input type="number" class="form-control" id="valorFipe" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <a href="semana4.html" class="btn btn-danger">Voltar</a>
+        </form>
+        <div class="card success">
+            <div id="resultado"  class="card text-center p-0" style="display:none;">
+                <h2 class="mt-4">Informações do Carro:</h2>
+                <p id="anosUtilizacao"></p>
+                <p id="valorMercado"></p>
+            </div>
+        </div>
+    </div>
+  <script src="scriptSemana4.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
