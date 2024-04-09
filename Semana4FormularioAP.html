@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Semana 4</title>
+    <title>Formulário Semana 4</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="mb-4">Formulario de Cadastro</h1>
+    <h1 class="mb-4">Formulário de Cadastro</h1>
     <form id="formulario">
         <div class="mb-3">
             <label for="tipo" class="form-label">Tipo de Pessoa:</label>
@@ -50,49 +50,93 @@
         <button type="button" class="btn btn-secondary" onclick="redefinir()">Redefinir</button>
     </form>
 </div>
-    <script>
-        function redefinir(){
-            location.reload();
+<script>
+    class Pessoa {
+        constructor(nome, sobrenome, email, dataNascimento) {
+            this.nome = nome;
+            this.sobrenome = sobrenome;
+            this.email = email;
+            this.dataNascimento = dataNascimento;
         }
-        function mostrarCampos() {
-            const tipo = document.getElementById("tipo").value;
-            const campoCurso = document.getElementById("campoCurso");
-            const campoAreaAtuacao = document.getElementById("campoAreaAtuacao");
-            const campoLinkLattes = document.getElementById("campoLinkLattes");
-    
-            if (tipo === "aluno") {
-                campoCurso.style.display = "block";
-                campoAreaAtuacao.style.display = "none";
-                campoLinkLattes.style.display = "none";
-            } else if (tipo === "professor") {
-                campoCurso.style.display = "none";
-                campoAreaAtuacao.style.display = "block";
-                campoLinkLattes.style.display = "block";
+    }
+
+    class Aluno extends Pessoa {
+        constructor(nome, sobrenome, email, dataNascimento, curso) {
+            super(nome, sobrenome, email, dataNascimento);
+            this.curso = curso;
+        }
+    }
+
+    class Professor extends Pessoa {
+        constructor(nome, sobrenome, email, dataNascimento, areaAtuacao, linkLattes) {
+            super(nome, sobrenome, email, dataNascimento);
+            this.areaAtuacao = areaAtuacao;
+            this.linkLattes = linkLattes;
+        }
+    }
+
+    function clearForm() {
+        var elements = document.querySelectorAll("input");   
+        for (var i = 0; i < elements.length; i++) {
+                var element = elements[i];
+                if (element.tagName === "INPUT" || element.tagName === "SELECT" || element.tagName === "TEXTAREA") {
+                element.value = "";
             }
         }
-        document.getElementById("formulario").addEventListener("submit", function(event) {
-            event.preventDefault();
-    
-            const tipo = document.getElementById("tipo").value;
-            const nome = document.getElementById("nome").value;
-            const sobrenome = document.getElementById("sobrenome").value;
-            const email = document.getElementById("email").value;
-            const dataNascimento = document.getElementById("dataNascimento").value;
-            let pessoa;
-    
-            if (tipo === "aluno") {
-                const curso = document.getElementById("curso").value;
-                pessoa = new Aluno(nome, sobrenome, email, dataNascimento, curso);
-            } else if (tipo === "professor") {
-                const areaAtuacao = document.getElementById("areaAtuacao").value;
-                const linkLattes = document.getElementById("linkLattes").value;
-                pessoa = new Professor(nome, sobrenome, email, dataNascimento, areaAtuacao, linkLattes);
-            }
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    }
+
+    function redefinir() {
+        location.reload();
+    }
+
+    function mostrarCampos() {
+        const tipo = document.getElementById("tipo").value;
+        const campoCurso = document.getElementById("campoCurso");
+        const campoAreaAtuacao = document.getElementById("campoAreaAtuacao");
+        const campoLinkLattes = document.getElementById("campoLinkLattes");
+
+        if (tipo === "aluno") {
+            campoCurso.style.display = "block";
+            campoAreaAtuacao.style.display = "none";
+            campoLinkLattes.style.display = "none";
+        } else if (tipo === "professor") {
+            campoCurso.style.display = "none";
+            campoAreaAtuacao.style.display = "block";
+            campoLinkLattes.style.display = "block";
+        }
+    }
+
+    document.getElementById("formulario").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const tipo = document.getElementById("tipo").value;
+        const nome = document.getElementById("nome").value;
+        const sobrenome = document.getElementById("sobrenome").value;
+        const email = document.getElementById("email").value;
+        const dataNascimento = document.getElementById("dataNascimento").value;
+        let pessoa;
+
+        if (tipo === "aluno") {
+            const curso = document.getElementById("curso").value;
+            pessoa = new Aluno(nome, sobrenome, email, dataNascimento, curso);
+        } else if (tipo === "professor") {
+            const areaAtuacao = document.getElementById("areaAtuacao").value;
+            const linkLattes = document.getElementById("linkLattes").value;
+            pessoa = new Professor(nome, sobrenome, email, dataNascimento, areaAtuacao, linkLattes);
+        }
+        
+        alert(`Pessoa cadastrada:
+        Nome: ${pessoa.nome} ${pessoa.sobrenome}
+        Email: ${pessoa.email}
+        Data de Nascimento: ${pessoa.dataNascimento}
+        ${tipo === "aluno" ? `Curso: ${pessoa.curso}` : `Área de Atuação: ${pessoa.areaAtuacao}
+        Link do Lattes: ${pessoa.linkLattes}`}`);
+
+        clearForm();
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
