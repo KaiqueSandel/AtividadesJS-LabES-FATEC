@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Exercícios JavaScript - Lab Engenharia de Software</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        #calculadora {
+            background-color: black;
+            color: white;
+            width: 350px;
+            margin: 20px auto;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #visor {
+            background-color: #ccc;
+            width: 100%;
+            height: 50px;
+            text-align: right;
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        #botoes {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .botao {
+            width: 30%;
+            height: 50px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .operador {
+            background-color: red;
+        }
+        .numero {
+            background-color: white;
+        }
+        .resultado {
+            background-color: orange;
+        }
+        #backspace {
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculadora">
+        <h1 style="color: white;">Calculadora</h1>
+        <div id="visor">0</div>
+        <div id="botoes"></div>
+        <a href="index.html"><button class="btn btn-danger">Voltar</button></a>
+    </div>
+
+    <script>
+        const visor = document.getElementById("visor");
+        const botoes = document.getElementById("botoes");
+        let valorAtual = "";
+        let operadorAtual = "";
+        let ultimoValor = "";
+
+        function adicionarNumero(numero) {
+            valorAtual += numero;
+            visor.textContent = operadorAtual !== "" ? operadorAtual + " " + valorAtual : valorAtual;
+        }
+
+        function adicionarOperador(operador) {
+            if (valorAtual === "") {
+                return;
+            }
+            if (operadorAtual !== "") {
+                calcularResultado();
+            }
+            ultimoValor = valorAtual;
+            valorAtual = "";
+            operadorAtual = operador;
+            visor.textContent = ultimoValor + " " + operadorAtual;
+        }
+
+        function calcularResultado() {
+            if (valorAtual === "" || operadorAtual === "") {
+                return;
+            }
+            let resultado = 0;
+            switch (operadorAtual) {
+                case "+":
+                    resultado = parseFloat(ultimoValor) + parseFloat(valorAtual);
+                    break;
+                case "-":
+                    resultado = parseFloat(ultimoValor) - parseFloat(valorAtual);
+                    break;
+                case "*":
+                    resultado = parseFloat(ultimoValor) * parseFloat(valorAtual);
+                    break;
+                case "/":
+                    resultado = parseFloat(ultimoValor) / parseFloat(valorAtual);
+                    break;
+            }
+            valorAtual = resultado.toString();
+            operadorAtual = "";
+            visor.textContent = valorAtual;
+        }
+
+        function limparTudo() {
+            valorAtual = "";
+            operadorAtual = "";
+            ultimoValor = "";
+            visor.textContent = "0";
+        }
+
+        function apagarUltimo() {
+            valorAtual = valorAtual.slice(0, -1);
+            visor.textContent = operadorAtual !== "" ? operadorAtual + " " + valorAtual : valorAtual;
+        }
+
+        for (let i = 0; i < 10; i++) {
+            const botaoNumero = document.createElement("button");
+            botaoNumero.textContent = i;
+            botaoNumero.classList.add("botao", "numero");
+            botaoNumero.addEventListener("click", () => adicionarNumero(i));
+            botoes.appendChild(botaoNumero);
+        }
+
+        const operadores = ["+", "-", "*", "/"];
+        for (const operador of operadores) {
+            const botaoOperador = document.createElement("button");
+            botaoOperador.textContent = operador;
+            botaoOperador.classList.add("botao", "operador");
+            botaoOperador.addEventListener("click", () => adicionarOperador(operador));
+            botoes.appendChild(botaoOperador);
+        }
+
+        const botaoLimpar = document.createElement("button");
+        botaoLimpar.textContent = "C";
+        botaoLimpar.classList.add("botao");
+        botaoLimpar.addEventListener("click", limparTudo);
+        botoes.appendChild(botaoLimpar);
+
+        const botaoBackspace = document.createElement("button");
+        botaoBackspace.textContent = "Apagar";
+        botaoBackspace.id = "backspace";
+        botaoBackspace.classList.add("botao");
+        botaoBackspace.addEventListener("click", apagarUltimo);
+        botoes.appendChild(botaoBackspace);
+
+        const botaoIgual = document.createElement("button");
+        botaoIgual.textContent = "=";
+        botaoIgual.classList.add("botao", "resultado");
+        botaoIgual.addEventListener("click", calcularResultado);
+        botoes.appendChild(botaoIgual);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
