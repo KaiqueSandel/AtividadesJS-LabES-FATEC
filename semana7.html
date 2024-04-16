@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Exercícios JavaScript - Lab Engenharia de Software</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #letreiro {
+            font-size: 24px;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function Letreiro() {
+            const [texto, setTexto] = React.useState("");
+            const frase = "Venha estudar na Fatec";
+            React.useEffect(() => {
+                let index = 0;
+                const interval = setInterval(() => {
+                    setTexto((prevTexto) => {
+                        if (index >= frase.length) {
+                            index = 0;
+                            return "";
+                        }
+                        return prevTexto + frase[index++];
+                    });
+                }, 200);
+                
+                return () => clearInterval(interval);
+            }, []);
+
+            return <h1 id="letreiro">{texto}</h1>;
+        }
+        const container = document.getElementById('root');
+        ReactDOM.render(<Letreiro />, container);
+    </script>
+</body>
+</html>
